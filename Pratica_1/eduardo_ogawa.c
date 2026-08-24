@@ -41,8 +41,8 @@ int pares (int n, int* vet)
 void inverte (int n, int* vet)
 {
     int temp;
-
-    for(int i=0;i<n/2;i++)
+    int f = n/2;
+    for(int i=0;i<f;i++)
     {
          temp = vet[n-1];
         vet[n-1] = vet[i];
@@ -63,4 +63,30 @@ double avalia (double* poli, int grau, double x)
     }
 
     return valor;
+}
+
+int** inverte2 (int n, int* vet)
+{
+    int**inv = malloc(n*sizeof(int*));
+
+    for(int i=0;i<n;i++)
+        inv[i] = malloc(sizeof(int));
+
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i;j<n;j++)
+        {
+            if(vet[i]>vet[j])
+            {
+                int temp = vet[i];
+                vet[i] = vet[j];
+                vet[j] = temp;
+            }
+        }
+    }
+
+    for(int i=0;i<n;i++)
+        *inv[i] = vet[i];
+
+    return inv;
 }
