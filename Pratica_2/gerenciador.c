@@ -3,8 +3,10 @@
 #include <string.h>
 #include "gerenciador.h"
 #include "produto.h"
+#include "filial.h"
+#include "supermercado.h"
 
-void Leitura()
+void Ativar()
 {
     
     int qnt = 0;
@@ -28,13 +30,17 @@ void Leitura()
     tSupermercado* mercado = leSupermercado();
 
 
-//VINCULAR PRODUTOS FILIAIS COM CATALOGO
+//IMPRIMIR
 
-    for(int i=0;i<qnt;i++)
+    printf("Nome do Supermercado: %s\n",getNomeSupermercado(mercado));
+
+    for(int i=0;i<getQntFiliais(mercado);i++)
     {
-        int idBuscado = getIdProduto(lista[i]);
-        int estoque = getEstoqueTotal(mercado,idBuscado);
-        incrementarEstoqueProduto(lista[i],estoque);
+        tFilial* filial = getFilialSupermercado(mercado,i);
+        printf("Filial: %s\n",getNomeFIlial(filial));
+        printf("Estoque: %.2f\n",getValorFilial(filial,lista,qnt));
+
+        imprimiProdutosFIlial(filial,lista,qnt);
     }
 
 //LIBERAR MEMÓRIA

@@ -44,10 +44,6 @@ int getEstoqueProduto(tProduto* p)
     return p->estoque;
 }
 
-void incrementarEstoqueProduto(tProduto* p, int qnt)
-{
-    p->estoque += qnt;
-}
 
 void liberaProduto(tProduto* p)
 {

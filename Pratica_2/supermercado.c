@@ -18,6 +18,7 @@ tSupermercado* criaSupermercado(char*nome,int qntFiliais)
     tSupermercado* s = malloc(sizeof(tSupermercado));
 
     s->nome = malloc((strlen(nome)+1)*sizeof(char));
+    strcpy(s->nome,nome);
     s->qntFiliais = qntFiliais;
     s->filiais = malloc(qntFiliais*sizeof(tFilial*));
 
@@ -34,7 +35,7 @@ tSupermercado* leSupermercado()
     char nome[101];
     int qntFiliais=0;
 
-    scanf("%s",nome);
+    scanf(" %[^\n]",nome);
     scanf("%d",&qntFiliais);
 
     tSupermercado* s = criaSupermercado(nome,qntFiliais);
@@ -42,16 +43,7 @@ tSupermercado* leSupermercado()
     return s;
 }
 
-int getEstoqueTotal(tSupermercado* s,int id)
-{
-    int total = 0;
-    for(int i=0;i<s->qntFiliais;i++)
-    {
-        total += getEstoqueProdutoFilial(id,s->filiais[i]);
-    }
 
-    return total;
-}
 
 void liberaSupermercado(tSupermercado* s)
 {
@@ -62,4 +54,19 @@ void liberaSupermercado(tSupermercado* s)
     
     free(s->filiais);
     free(s);
+}
+
+int getQntFiliais(tSupermercado* s)
+{
+    return s->qntFiliais;
+}
+
+tFilial* getFilialSupermercado(tSupermercado* s, int i)
+{
+    return s->filiais[i];
+}
+
+char* getNomeSupermercado(tSupermercado* s)
+{
+    return s->nome;
 }

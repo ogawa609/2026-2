@@ -10,6 +10,6 @@ float getPrecoProduto(tProduto* p);
 char* getNomeProduto(tProduto* p);
 int getEstoqueProduto(tProduto* p);
 void liberaProduto(tProduto* p);
-void incrementarEstoqueProduto(tProduto* p, int qnt);
+
 
 #endif
