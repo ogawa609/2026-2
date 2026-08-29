@@ -13,43 +13,40 @@ struct Supermercado
     tProduto** produtos;
 };
 
-tSupermercado* criaSupermercado(char*nome,int qntFiliais)
+tSupermercado* criaSupermercado(char* nome, int qntFiliais, FILE* f)
 {
     tSupermercado* s = malloc(sizeof(tSupermercado));
 
-    s->nome = malloc((strlen(nome)+1)*sizeof(char));
-    strcpy(s->nome,nome);
-    s->qntFiliais = qntFiliais;
-    s->filiais = malloc(qntFiliais*sizeof(tFilial*));
+    s->nome = malloc((strlen(nome) + 1) * sizeof(char));
+    strcpy(s->nome, nome);
 
-    for(int i=0;i<qntFiliais;i++)
-        s->filiais[i] = leFilial();
+    s->qntFiliais = qntFiliais;
+    s->filiais = malloc(qntFiliais * sizeof(tFilial*));
+
+    for(int i = 0; i < qntFiliais; i++)
+        s->filiais[i] = leFilial(f);
     
     return s;
-
 }
 
-
-tSupermercado* leSupermercado()
+tSupermercado* leSupermercado(FILE* f)
 {
     char nome[101];
-    int qntFiliais=0;
+    int qntFiliais = 0;
 
-    scanf(" %[^\n]",nome);
-    scanf("%d",&qntFiliais);
+    fscanf(f, "%100s", nome);
+    fscanf(f, "%d", &qntFiliais);
 
-    tSupermercado* s = criaSupermercado(nome,qntFiliais);
+    tSupermercado* s = criaSupermercado(nome, qntFiliais, f);
 
     return s;
 }
-
-
 
 void liberaSupermercado(tSupermercado* s)
 {
     free(s->nome);
 
-    for(int i=0;i<s->qntFiliais;i++)
+    for(int i = 0; i < s->qntFiliais; i++)
         liberaFilial(s->filiais[i]);
     
     free(s->filiais);

@@ -4,7 +4,7 @@
 #include "filial.h"
 #include "produto.h"
 
-//Estrutura de dados com tecnicas em programação em C
+// Estrutura de dados com tecnicas em programação em C
 
 struct Filial
 {
@@ -14,34 +14,39 @@ struct Filial
     
 };
 
-tFilial* criaFilial(char* nome, int estoque)
+tFilial* criaFilial(char* nome, int estoque, FILE* p)
 {
     tFilial* f = malloc(sizeof(tFilial));
-    f->nome = malloc((strlen(nome)+1)*sizeof(char));
-    strcpy(f->nome,nome);
-    f->estoque = estoque;
-    f->listaProdutos = malloc(estoque*sizeof(tProduto*));
 
-    for(int i=0;i<estoque;i++)
+    f->nome = malloc((strlen(nome) + 1) * sizeof(char));
+    strcpy(f->nome, nome);
+
+    f->estoque = estoque;
+    f->listaProdutos = malloc(estoque * sizeof(tProduto*));
+
+    for(int i = 0; i < estoque; i++)
     {
-        int id,qnt;
-        scanf("%d %d",&id,&qnt);
-        f->listaProdutos[i] = criaProduto(nome,id,0,qnt);
+        int id, qnt;
+
+        fscanf(p, "%d", &id);
+        fscanf(p, "%d", &qnt);
+
+        f->listaProdutos[i] = criaProduto(nome, id, 0, qnt);
     }
-        
 
     return f;
 }
 
-tFilial* leFilial()
+tFilial* leFilial(FILE* p)
 {
     int estoque = 0;
     char nome[101];
 
-    scanf("%s",nome);
-    scanf("%d",&estoque);
+    fscanf(p, "%100s", nome);
+    fscanf(p, "%d", &estoque);
 
-    tFilial* f = criaFilial(nome,estoque);
+    tFilial* f = criaFilial(nome, estoque, p);
+
     return f;
 }
 
@@ -49,13 +54,12 @@ void liberaFilial(tFilial* f)
 {
     free(f->nome);
 
-    for(int i=0;i<f->estoque;i++)
+    for(int i = 0; i < f->estoque; i++)
         liberaProduto(f->listaProdutos[i]);
 
     free(f->listaProdutos);
     free(f);
 }
-
 
 char* getNomeFIlial(tFilial* f)
 {
@@ -67,52 +71,53 @@ int getEstoqueFilial(tFilial* f)
     return f->estoque;
 }
 
-float getValorFilial(tFilial* f,tProduto**catalogo,int qnt)
+float getValorFilial(tFilial* f, tProduto** catalogo, int qnt)
 {
     float total = 0;
 
-    for(int i=0;i<f->estoque;i++)
+    for(int i = 0; i < f->estoque; i++)
     {
-
         int id = getIdProduto(f->listaProdutos[i]);
         float a = 0;
 
-        for(int j=0;j<qnt;j++)
+        for(int j = 0; j < qnt; j++)
         {
-            if(id==getIdProduto(catalogo[j]))
+            if(id == getIdProduto(catalogo[j]))
             {
                 a = getPrecoProduto(catalogo[j]);
                 break;
             }
         }
+
         int b = getEstoqueProduto(f->listaProdutos[i]);
-        
-       total +=(a*b);
+
+        total += (a * b);
     }
 
     return total;
 }
 
-tProduto* getProdutoFilial(tFilial* f,int i)
+tProduto* getProdutoFilial(tFilial* f, int i)
 {
     return f->listaProdutos[i];
 }
 
-void imprimiProdutosFIlial(tFilial* f,tProduto** catalogo,int qnt)
+void imprimiProdutosFIlial(tFilial* f, tProduto** catalogo, int qnt)
 {
-    for(int i=0;i<f->estoque;i++)
+    for(int i = 0; i < f->estoque; i++)
     {
         tProduto* produto = f->listaProdutos[i];
+
         int estoque = getEstoqueProduto(produto);
         int id = getIdProduto(produto);
+
         int flag = 0;
         char* nome = NULL;
         float preco = 0;
 
-
-        for(int j=0;j<qnt;j++)
+        for(int j = 0; j < qnt; j++)
         {
-            if(id==getIdProduto(catalogo[j]))
+            if(id == getIdProduto(catalogo[j]))
             {
                 flag = 1;
                 nome = getNomeProduto(catalogo[j]);
@@ -122,7 +127,7 @@ void imprimiProdutosFIlial(tFilial* f,tProduto** catalogo,int qnt)
         }
 
         if(flag)
-            printf("Item: %s, valor unitário: %.2f, quantidade: %d\n",nome,preco,estoque);
+            printf("Item: %s, valor unitário: %.2f, quantidade: %d\n",
+                   nome, preco, estoque);
     }
 }
-

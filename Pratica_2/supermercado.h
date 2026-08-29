@@ -5,8 +5,8 @@
 
 typedef struct Supermercado tSupermercado;
 
-tSupermercado* criaSupermercado(char*nome,int qntFiliais);
-tSupermercado* leSupermercado();
+tSupermercado* criaSupermercado(char*nome,int qntFiliais,FILE*f);
+tSupermercado* leSupermercado(FILE*f);
 void liberaSupermercado(tSupermercado* s);
 int getQntFiliais(tSupermercado* s);
 tFilial* getFilialSupermercado(tSupermercado* s, int i);
