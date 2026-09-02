@@ -62,7 +62,7 @@ void AtivaPrograma()
 
             if(pos<0||pos>linha-1)
             {
-                printf("Numero da linha invalido\n");
+                printf("\nNumero da linha invalido\n\n");
             }
             else
                 imprimeLinha(mat,pos);
