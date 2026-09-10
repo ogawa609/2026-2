@@ -65,34 +65,39 @@ tMatriz* CriaMatriz(int linha,int coluna)
         free(m->palavras);
         free(m);
     }
-    void BuscaPalavra(tMatriz* m)
+    int BuscaPalavra(tMatriz* m)
     {
         char palavra[150];
-        printf("==> Digite a palavra para o caça-palavras ou 0, caso queira sair:\n");
+        printf("==> Digite a palavra para o caça-palavras ou 0, caso queira sair:\n\n");
 
         scanf("%s",palavra);
 
         if(strcmp(palavra,"0")==0)
         {
             printf("Program ended with exit code: 0\n");
-            return;
+            return 0;
 
         }
-            
+
+        int flag = 1;
+
         for(int i=0;i<m->linha;i++)
         {
             for(int j=0;j<m->coluna;j++)
             {
-                if(strstr(m->palavras[i][j],palavra)==NULL)
+                if(strstr(m->palavras[i][j],palavra)!=NULL)
                 {
-                    printf("Palavra não encontrada... :(\n");
-                    return;
+                    printf("Palavra encontrada na posicao [%d][%d] :)!\n\n",i,j);
+                    flag = 0;
                 }
-                else
-                {
-                    printf("Palavra encontrada na posicao [%d][%d] :)!\n",i,j);
-                }
+                
             }
+
         }
+
+        if(flag)
+             printf("Palavra não encontrada... :(\n");
+
+        return 1;
     }
     
