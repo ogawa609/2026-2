@@ -56,28 +56,54 @@ void RetiraEstudanteLista(tLista* lista,int matricula)
     tCelula* atual = lista->primeira;
     tCelula* anterior = NULL;
 
-    while(1)
+    while(atual != NULL)
     {
         if(getMatricula(atual->estdante) == matricula)
         {
-            //caso 1: ser o primeiro da lista
 
-            if(atual == lista->primeira)
+
+            // caso 1: celula única
+             if(atual== lista->primeira && atual==lista->ultima)
+            {
+                lista->primeira = NULL;
+                lista->ultima = NULL;
+                LiberaCel(atual);
+            }
+            //caso 2: ser o primeiro da lista
+
+            else if(atual == lista->primeira)
             {
                 lista->primeira = atual->proxima;
                 LiberaCel(atual);
-                atual = lista->primeira;
                 return;
             }
             
-            //caso 2: ser o ultimo da lista
+            //caso 3: ser o ultimo da lista
 
-            else if(proxima == lista->ultima)
+            else if(atual == lista->ultima)
             {
-
+                lista->ultima = anterior;
+                anterior->proxima = NULL;
+                LiberaCel(atual);
+                return;
             }
-            //caso 3: meio da lista
+
+            
+            //caso 4: meio da lista
+
+            else
+            {
+                anterior->proxima = atual->proxima;
+                LiberaCel(atual);
+                return;
+            }
         }
+
+        anterior = atual;
+        atual = atual->proxima;
+
+        if(atual==NULL)
+            break;
     }
 }
     
@@ -102,29 +128,33 @@ void LiberaLista(tLista* lista)
 
 
 }
-void ImprimeLista(tLista* lista)
+void ImprimeLista(tLista* lista,FILE* f)
 {
     tCelula* atual = lista->primeira;
 
-    printf("=======================LISTA==========================\n\n");
+    int cont = 0;
+    float media = 0;
 
     while(1)
     {
+        
+
         if(atual == NULL)
             break;
-            #if !defined(MACRO)
-            #define MACRO
-            
-            
-            
-            #endif // MACRO
+    
         char* nome = getNome(atual->estdante);
         int matricula = getMatricula(atual->estdante);
         float cr = getCr(atual->estdante);
 
-        printf("NOME: %s\nMATRICULA: %d\nCR: %.2f\n\n",nome,matricula,cr);
+        media += cr;
+        cont++;
+
+        fprintf(f,"%d %s %.1f\n",matricula,nome,cr);
 
         atual = atual->proxima;
 
     }
+    if(cont>0)
+        fprintf(f,"Média: %.2f\n",media/cont);
+    
 }
