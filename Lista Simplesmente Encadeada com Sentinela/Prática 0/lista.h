@@ -10,6 +10,7 @@ void LiberaLista(tLista* lista);
 void RetiraAluno(int matricula,tLista* lista);
 tCelula* CriaCelula(tAluno* aluno);
 void LiberaCelula(tCelula* cel);
+void ImprimeLista(tLista* lista);
 
 
 #endif

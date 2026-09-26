@@ -12,8 +12,8 @@
 
 struct Lista 
 {
-    tCelula* prox;
-    tCelula* ant;
+    tCelula* prim;
+    tCelula* ult;
 
 };
 
@@ -21,8 +21,8 @@ struct Lista
 tLista* CriaLista()
 {
     tLista* lista = malloc(sizeof(tLista));
-    lista->ant = NULL;
-    lista->prox = NULL;
+    lista->prim = NULL;
+    lista->ult = NULL;
 
     return lista;
 }
@@ -31,25 +31,32 @@ void InsereAluno(tLista* lista, tAluno* aluno )
 {
 
     tCelula* cel = CriaCelula(aluno);
-    if(lista->ant == NULL)
-        lista->ant = cel;
-    else
-        lista->prox->proximo = cel;
-    
-    lista->prox = cel;
+    if(lista->prim==NULL)
+    {
+        lista->prim = cel;
+        lista->ult = cel;
+        return;
+    }
+
+    lista->ult->proximo = cel;
+    lista->ult = cel;
+
 }
 void LiberaLista(tLista* lista)
 {
-    if(lista->ant!=NULL)
+    if(lista->prim!=NULL)
     {
-        tCelula* prox = lista->ant;
-        tCelula* atual = prox;
+        tCelula* atual = lista->prim;
+        tCelula* temp = atual->proximo;
 
-        while(atual!=NULL)
+        while(1)
         {
-            atual = prox;
-            prox = atual->proximo;
             LiberaCelula(atual);
+            atual = temp;
+
+            if(atual==NULL)
+                break;
+            temp = atual->proximo;
             
         }
     }
@@ -58,19 +65,52 @@ void LiberaLista(tLista* lista)
 
 void RetiraAluno(int matricula,tLista* lista)
 {
-    tCelula* temp = NULL;
-    tCelula* ant = NULL;
+    tCelula* atual = lista->prim;
+    tCelula* anterior = NULL;
 
-    for(temp = lista->ant;temp!=NULL;temp==temp->proximo)
+    while(atual != NULL)
     {
-        if(getMatricula(temp->aluno)==matricula)
+        if(getMatricula(atual->aluno)==matricula)
         {
-            if(temp==lista->ant)
+            //Caso 1: cel unica
+            if(atual==lista->prim && atual==lista->ult)
             {
-                
+                lista->prim = NULL;
+                lista->ult = NULL;
+                LiberaCelula(atual);
+                return;
             }
-            else if()
+            //Caso 2: primeira cel
+            else if(atual==lista->prim)
+            {
+                tCelula* temp = atual->proximo;
+                LiberaCelula(atual);
+                lista->prim = temp;
+                return;
+            }
+            //caso 3: ultima cel
+            else if(atual==lista->ult)
+            {
+                LiberaCelula(atual);
+                lista->ult = anterior;
+                anterior->proximo = NULL;
+                return;
+            }
+            //Caso 4: Meio
+            else
+            {
+                tCelula* temp = atual->proximo;
+                LiberaCelula(atual);
+                anterior->proximo = temp;
+                return;
+            }
         }
+
+        anterior = atual;
+        atual = atual->proximo;
+
+        if(atual==NULL)
+            break;
     }
 }
 
@@ -88,4 +128,20 @@ void LiberaCelula(tCelula* cel)
 {
     LiberaAluno(cel->aluno);
     free(cel);
+}
+
+void ImprimeLista(tLista* lista)
+{
+    tCelula* atual = lista->prim;
+    printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n\n");
+    while(1)
+    {
+        ImprimeAluno(atual->aluno);
+        atual = atual->proximo;
+
+        if(atual==NULL)
+            break;
+    }
+
+        printf("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n");
 }
