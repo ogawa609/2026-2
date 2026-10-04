@@ -29,6 +29,7 @@ void LiberaQuestao(tQuestao* q)
 {
     free(q->enunciado);
     free(q->id);
+    free(q);
 }
 
 char* GetIdQuestao(tQuestao* q)

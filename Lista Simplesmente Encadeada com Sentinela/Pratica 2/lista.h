@@ -10,6 +10,9 @@
     void RetiraLista(tLista* lista, char* id);
     void ImprimeLista(tLista* lista);
     tLista* CriarMerge(tLista* l1, tLista* l2);
+    void removeRepetido(tLista* l);
+    tQuestao* BuscarQuestao(tLista* l, char* id);
+    void LiberaProvas(tLista* l);
 
 
 #endif
