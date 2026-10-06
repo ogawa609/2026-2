@@ -1,0 +1,78 @@
+Matriz Original:
+Patricia Joao Maria Joana 
+Mariana Carlos Beatriz Ana 
+Pedro Carol Alberto Marilia 
+
+Visão Submatriz 1-2 1-3:
+Carlos Beatriz Ana 
+Carol Alberto Marilia 
+
+Submatriz quadrada 1x1 em (0,0):
+Patricia 
+
+Submatriz quadrada 2x2 em (0,0):
+Patricia Joao 
+Mariana Carlos 
+
+Submatriz quadrada 3x3 em (0,0):
+Patricia Joao Maria 
+Mariana Carlos Beatriz 
+Pedro Carol Alberto 
+
+Submatriz quadrada 1x1 em (0,1):
+Joao 
+
+Submatriz quadrada 2x2 em (0,1):
+Joao Maria 
+Carlos Beatriz 
+
+Submatriz quadrada 3x3 em (0,1):
+Joao Maria Joana 
+Carlos Beatriz Ana 
+Carol Alberto Marilia 
+
+Submatriz quadrada 1x1 em (0,2):
+Maria 
+
+Submatriz quadrada 2x2 em (0,2):
+Maria Joana 
+Beatriz Ana 
+
+Submatriz quadrada 1x1 em (0,3):
+Joana 
+
+Submatriz quadrada 1x1 em (1,0):
+Mariana 
+
+Submatriz quadrada 2x2 em (1,0):
+Mariana Carlos 
+Pedro Carol 
+
+Submatriz quadrada 1x1 em (1,1):
+Carlos 
+
+Submatriz quadrada 2x2 em (1,1):
+Carlos Beatriz 
+Carol Alberto 
+
+Submatriz quadrada 1x1 em (1,2):
+Beatriz 
+
+Submatriz quadrada 2x2 em (1,2):
+Beatriz Ana 
+Alberto Marilia 
+
+Submatriz quadrada 1x1 em (1,3):
+Ana 
+
+Submatriz quadrada 1x1 em (2,0):
+Pedro 
+
+Submatriz quadrada 1x1 em (2,1):
+Carol 
+
+Submatriz quadrada 1x1 em (2,2):
+Alberto 
+
+Submatriz quadrada 1x1 em (2,3):
+Marilia 

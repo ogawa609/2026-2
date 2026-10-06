@@ -1,0 +1,32 @@
+Matriz Original:
+Patricia Joao Maria 
+Mariana Carlos Beatriz 
+
+Visão Submatriz 1-1 0-1:
+Mariana Carlos 
+
+Submatriz quadrada 1x1 em (0,0):
+Patricia 
+
+Submatriz quadrada 2x2 em (0,0):
+Patricia Joao 
+Mariana Carlos 
+
+Submatriz quadrada 1x1 em (0,1):
+Joao 
+
+Submatriz quadrada 2x2 em (0,1):
+Joao Maria 
+Carlos Beatriz 
+
+Submatriz quadrada 1x1 em (0,2):
+Maria 
+
+Submatriz quadrada 1x1 em (1,0):
+Mariana 
+
+Submatriz quadrada 1x1 em (1,1):
+Carlos 
+
+Submatriz quadrada 1x1 em (1,2):
+Beatriz 
