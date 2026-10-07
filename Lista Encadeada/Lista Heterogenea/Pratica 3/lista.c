@@ -31,7 +31,7 @@ struct Lista
 
     void LiberaCel(tCel* c)
     {
-        if(id == 'A')
+        if(c->id == 'A')
             LiberaAluno((tAluno*)c->pessoa);
         else
             LiberaProfessor((tProfessor*)c->pessoa);
@@ -61,7 +61,7 @@ struct Lista
     {
         tCel* c = malloc(sizeof(tCel));
         c->pessoa  = nfo;
-        c->proximo = NULL
+        c->proximo = NULL;
         c->id = id;
 
         return c;
@@ -78,12 +78,45 @@ struct Lista
             l->ultimo = cel;
         }
 
-        l->ulrimo->proximo = cel;
+        l->ultimo->proximo = cel;
         cel->anterior = l->ultimo;
         l->ultimo = cel;
         
     }
     void ImprimeRelatorio(tLista* l)
     {
-        
+        printf("PROFESSORES\n");
+
+        int nProf = 0;
+        float salario = 0;
+
+        tCel* temp = l->primeiro;
+
+        while(1)
+        {
+            if(temp == NULL)
+                break;
+
+            if(temp->id == 'P')
+            {
+                ImprimeProfesor((tProfessor*)temp->pessoa);
+                nProf++;
+                salario += GetSalarioProf((tProfessor*)temp->pessoa);
+            }
+
+            temp = temp->proximo;
+
+        }
+        printf("\n");
+        if(nProf>0)
+            salario /= nProf;
+        else
+            salario = 0;
+
+
+        printf("Média de salário dos %d professores: %,2f\n\n",nProf,salario);
+
+        temp = l->primeiro;
+
+
     }
