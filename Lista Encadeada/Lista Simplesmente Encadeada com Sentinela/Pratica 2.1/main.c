@@ -24,6 +24,8 @@ int main()
         InsereLista(banco,quest);
     }
 
+    
+
     tLista* provas[NUM_PROVAS];
 
     for(int i=0;i<NUM_PROVAS;i++)
@@ -40,7 +42,7 @@ int main()
             char chave[11];
             scanf("%s",chave);
 
-            tQuestao* buscada = BuscaQuestao(buscada,chave);
+            tQuestao* buscada = BuscaQuestao(banco,chave);
             InsereLista(provas[i],buscada);
         }
     }
@@ -48,7 +50,7 @@ int main()
     ImprimeProva(provas[0]);
     ImprimeProva(provas[1]);
 
-    tLista* merge = CriaMerge(provas[0],provas[1]);
+    tLista* merge = CriaMerge(provas[1],provas[0]);
 
     ImprimeProva(merge);
 
@@ -57,6 +59,8 @@ int main()
     
 
     LiberaListaParcial(merge);
+
+    
     LiberaListaTotal(banco);
     return 0;
 }

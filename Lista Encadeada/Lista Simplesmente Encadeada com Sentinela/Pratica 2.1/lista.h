@@ -11,4 +11,5 @@
     tLista* CriaMerge(tLista* l1, tLista* l2);
     void RetiraRepetido(tLista* l);
     void LiberaListaParcial(tLista* l);
+    void LiberaStruct(tLista* l);
 #endif
