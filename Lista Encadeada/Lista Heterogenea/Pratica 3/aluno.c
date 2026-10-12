@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#nclude <string.h>
+#include <string.h>
 #include "aluno.h"
 
 struct Aluno 
@@ -24,4 +24,15 @@ struct Aluno
     {
         free(a->nome);
         free(a);
+    }
+
+    void ImprimeAluno(tAluno* a)
+    {
+        printf("%s, CPF: %d e CR: %.2f\n",a->nome,a->cpf,a->cr);
+
+    }
+
+    float GetCrAluno(tAluno* a)
+    {
+        return a->cr;
     }

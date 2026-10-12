@@ -4,4 +4,6 @@
     typedef struct Aluno tAluno;
     tAluno* CriaAluno(char* nome, int cpf, float cr);
     void LiberaAluno(tAluno* a);
+    void ImprimeAluno(tAluno* a);
+    float GetCrAluno(tAluno* a);
 #endif

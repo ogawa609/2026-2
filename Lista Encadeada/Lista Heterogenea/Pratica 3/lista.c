@@ -114,9 +114,36 @@ struct Lista
             salario = 0;
 
 
-        printf("Média de salário dos %d professores: %,2f\n\n",nProf,salario);
+        printf("Média de salário dos %d professores: %.2f\n\n",nProf,salario);
+
+        printf("ALUNOS\n");
 
         temp = l->primeiro;
+        int nAlunos = 0;
+        float cr = 0;
+        
+        while(1)
+        {
+            if(temp == NULL)
+                break;
 
+            if(temp->id == 'A')
+            {
+                ImprimeAluno((tAluno*)temp->pessoa);
+                nAlunos++;
+                cr += GetCrAluno((tAluno*)temp->pessoa);
+            }
+
+            temp = temp->proximo;
+
+        }
+        printf("\n");
+        if(nProf>0)
+            cr /= nAlunos;
+        else
+            cr = 0;
+
+
+        printf("Média de CR dos %d alunos: %.2f\n\n",nAlunos,cr);
 
     }
