@@ -3,12 +3,6 @@
 #include <string.h>
 #include "Cachorro.h"
 
-enum Tipo
-{
-    BRAVO = 0,
-    MANSO = 1
-};
-
 struct Cachorro 
 {
     char* nome;
@@ -32,3 +26,18 @@ struct Cachorro
     {
         return c->personalidade;
     }
+
+     char* getNomeCachorro(Cachorro* c)
+     {
+        return c->nome;
+     }
+
+     void ImprimirCachorro(Cachorro* c)
+     {
+        printf("CACHORRO -> %s\n",c->nome);
+     }
+
+      void atribuiNivelAgressividadeCachorro(Cachorro* g, Tipo t)
+      {
+        g->personalidade = t;
+      }

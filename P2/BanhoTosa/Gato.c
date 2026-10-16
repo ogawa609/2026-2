@@ -4,12 +4,6 @@
 #include "Gato.h"
 #include "Cachorro.h"
 
-enum Tipo
-{
-    BRAVO = 0,
-    MANSO = 1
-};
-
  struct Gato 
  {
     char* nome;
@@ -34,4 +28,19 @@ enum Tipo
     Tipo getTipoGato(Gato* g)
     {
         return g->personalidade;
+    }
+
+    char* getNomeGato(Gato* g)
+    {
+        return g->nome;
+    }
+
+    void ImprimirGato(Gato* g)
+    {
+        printf("GATO -> %s\n",g->nome);
+    }
+
+    void atribuiNivelAgressividadeGato(Gato* g, Tipo t)
+    {
+        g->personalidade = t;
     }
