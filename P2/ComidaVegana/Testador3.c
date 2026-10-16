@@ -39,6 +39,7 @@ int main(int argc, const char * argv[]) {
      Nome comida vegana: Empadao, calorias: 600
      Nome comida nao vegana: Sorvete de Creme, valor: 15.40, calorias: 600
 */
+
     imprimePedido(pedidoPat);
     
     //fizeram uma alteracao na receita do empadao e o numero de calorias diminui ;)

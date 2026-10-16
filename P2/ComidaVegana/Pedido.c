@@ -59,7 +59,7 @@ void insereComidaVegana (Pedido* pedido, ComidaVegana* food)
 * pos-condicao: pedido contém o alimento em uma de suas listas, dependendo do nível de calorias do alimento  */
 void insereComidaNaoVegana (Pedido* pedido, ComidaNaoVegana* food)
 {
-    if(retornaCaloriasComidaNaoVegana(food))
+    if(retornaCaloriasComidaNaoVegana(food)>500)
         InsereLista(pedido->comidasCaloricas,food,0);
     else
         InsereLista(pedido->comidasMagras,food,0);
@@ -78,7 +78,23 @@ int retornaNumeroPedido(Pedido* pedido)
 * pos-condicao: alimento deve estar na lista correta, de acordo com seu nível de calorias */
 void atualizaSituacaoComidaNaoVegana(Pedido* pedido, ComidaNaoVegana* food)
 {
-    ComidaNaoVegana* errada = BuscaElemento()
+    char* nome = retornaNomeComidaNaoVegana(food);
+    int cal = retornaCaloriasComidaNaoVegana(food);
+
+    if(cal>500)
+    {
+        int f = RetiraLista(pedido->comidasMagras,nome);
+        if(f)
+            insereComidaNaoVegana(pedido,food);
+    }
+        
+    else
+    {
+        int f = RetiraLista(pedido->comidasCaloricas,nome);
+        if(f)
+            insereComidaNaoVegana(pedido,food);
+    }
+        
 }
 
 /* Essa função atualiza a situação de uma comida vegana no pedido. Caso o alimento esteja na lista errada, ele é devidamente MOVIDO para a lista correta.
@@ -86,7 +102,25 @@ void atualizaSituacaoComidaNaoVegana(Pedido* pedido, ComidaNaoVegana* food)
 * output: nenhum
 * pre-condicao: pedido alocado e alimento alocado
 * pos-condicao: alimento deve estar na lista correta, de acordo com seu nível de calorias */
-void atualizaSituacaoComidaVegana(Pedido* pedido, ComidaVegana* food);
+void atualizaSituacaoComidaVegana(Pedido* pedido, ComidaVegana* food)
+{
+    char* nome = retornaNomeComidaVegana(food);
+    int cal = retornaCaloriasComidaVegana(food);
+
+    if(cal>500)
+    {
+        int f = RetiraLista(pedido->comidasMagras,nome);
+        if(f)
+            insereComidaVegana(pedido,food);
+    }
+        
+    else
+    {
+        int f = RetiraLista(pedido->comidasCaloricas,nome);
+        if(f)
+            insereComidaVegana(pedido,food);
+    }
+}
 
 
 
@@ -101,25 +135,35 @@ void atualizaSituacaoComidaVegana(Pedido* pedido, ComidaVegana* food);
  Nome comida vegana: Empadao, calorias: 600
  Nome comida nao vegana: Sorvete de Creme, valor: 15.40, calorias: 600
 */
-void imprimePedido (Pedido* pedido);
+void imprimePedido (Pedido* pedido)
+{
+    printf("Imprimindo Detalhes do Pedido número: %d\n",pedido->pedido);
+    printf("Valor total do Pedido: %.2f\n\n",calculaValorPedido(pedido));
+
+    printf("Lista de Itens de Baixa Caloria: %d\n",GetQtdItens(pedido->comidasMagras));
+    ImprimeLista(pedido->comidasMagras);
+
+    printf("\n");
+
+    printf("Lista de Itens de Alta Caloria: %d\n",GetQtdItens(pedido->comidasCaloricas));
+    ImprimeLista(pedido->comidasCaloricas);
+    printf("\n");
+}
 
 //comida vegana tem o valor fixo de 30 reais
-float calculaValorPedido (Pedido* pedido);
+float calculaValorPedido (Pedido* pedido)
+{
+    return GetValorLista(pedido->comidasCaloricas) + GetValorLista(pedido->comidasMagras);
+}
 
 /* Libera toda a memória alocada
 * inputs: referencia para o pedido
 * output: não tem
 * pre-condicao: pedido alocado
 * pos-condicao: Toda a memória liberada, a não ser alimentos, que são responsabilidade do cliente. */
-void liberaPedido (Pedido* pedido);
-void imprimePedido (Pedido* pedido);
-
-//comida vegana tem o valor fixo de 30 reais
-float calculaValorPedido (Pedido* pedido);
-
-/* Libera toda a memória alocada
-* inputs: referencia para o pedido
-* output: não tem
-* pre-condicao: pedido alocado
-* pos-condicao: Toda a memória liberada, a não ser alimentos, que são responsabilidade do cliente. */
-void liberaPedido (Pedido* pedido);
+void liberaPedido (Pedido* pedido)
+{
+    LiberaLista(pedido->comidasCaloricas);
+    LiberaLista(pedido->comidasMagras);
+    free(pedido);
+}

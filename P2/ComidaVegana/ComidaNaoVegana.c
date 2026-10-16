@@ -26,8 +26,9 @@ ComidaNaoVegana* inicComidaNaoVegana(char* nome, int calorias, float valor){
 }
 
 void imprimeComidaNaoVegana (ComidaNaoVegana* food){
-    printf("\nNome comida nao vegana: %s, valor: %.2f, calorias: %d\n", food->nome, food->valor, food->calorias);
+    printf("Nome comida nao vegana: %s, valor: %.2f, calorias: %d\n", food->nome, food->valor, food->calorias);
 }
+
 
 char* retornaNomeComidaNaoVegana (ComidaNaoVegana* food){
     return food->nome;

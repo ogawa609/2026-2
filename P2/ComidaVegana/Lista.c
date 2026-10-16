@@ -1,4 +1,4 @@
-#include <stdio.h>
+#   include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "Lista.h"
@@ -17,7 +17,8 @@ struct Celula
 struct Lista 
 {
     tCelula* primeiro;
-    tCelula* ultimo
+    tCelula* ultimo;
+    int itens;
 };
 
 tLista* CriaLista()
@@ -25,6 +26,7 @@ tLista* CriaLista()
     tLista* l = malloc(sizeof(tLista));
     l->primeiro = NULL;
     l->ultimo = NULL;
+    l->itens = 0;
 
     return l;
 }
@@ -58,12 +60,14 @@ void InsereLista(tLista* l, void* elem, int id)
     {
         l->primeiro = c;
         l->ultimo = c;
+        l->itens++;
         return;
     }
 
     c->anterior = l->ultimo;
     l->ultimo->proximo = c;
     l->ultimo = c;
+    l->itens++;
 }
 
 int RetiraLista(tLista* l, char* nome)
@@ -89,6 +93,7 @@ int RetiraLista(tLista* l, char* nome)
                 l->primeiro = NULL;
                 l->ultimo = NULL;
                 LiberaCelula(atual);
+                l->itens--;
                 return 1;
             }
             //sendo primeiro elemento
@@ -97,14 +102,67 @@ int RetiraLista(tLista* l, char* nome)
                 prox->anterior = NULL;
                 LiberaCelula(atual);
                 l->primeiro = prox;
+                l->itens--;
+                return 1;
             }
             //sendo ultimo elemento
             if(atual == l->ultimo)
             {
                 atual->anterior->proximo = NULL;
+                l->ultimo = atual->anterior;
+                LiberaCelula(atual);
+                l->itens--;
+                return 1;
             }
             //estando no meio
-            
+            atual->anterior->proximo = atual->proximo;
+            atual->proximo->anterior = atual->anterior;
+            LiberaCelula(atual);
+            l->itens--;
+            return 1;
+        }
+        else
+        {
+            atual = prox;
         }
     }
+
+    return 0;
+}
+
+int GetQtdItens(tLista* l)
+{
+    return l->itens;
+}
+
+void ImprimeLista(tLista* l)
+{
+    tCelula* atual = l->primeiro;
+
+    while(atual != NULL)
+    {
+        if(atual->id == 0)
+            imprimeComidaNaoVegana((ComidaNaoVegana*)atual->elemento);
+        else
+            imprimeComidaVegana((ComidaVegana*)atual->elemento);
+        
+        atual = atual->proximo;
+    }
+}
+
+float GetValorLista(tLista* l)
+{
+    tCelula* atual = l->primeiro;
+    float valor = 0;
+    while(atual != NULL)
+    {
+            if(atual->id == 0)
+                valor += retornaValorComidaNaoVegana((ComidaNaoVegana*)atual->elemento);
+            else
+                valor+=30;
+            
+            atual = atual->proximo;
+    }
+
+    return valor;
 }

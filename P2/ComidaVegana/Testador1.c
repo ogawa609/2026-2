@@ -5,6 +5,7 @@
 //  Created by Patricia Dockhorn Costa on 22/06/22.
 //
 
+
 #include <stdio.h>
 #include "Pedido.h"
 
@@ -48,6 +49,16 @@ int main(int argc, const char * argv[]) {
     insereComidaNaoVegana(pedidoFulano, linguica);
     
     imprimePedido(pedidoFulano);
+
+    liberaPedido(pedidoPat);
+    liberaPedido(pedidoFulano);
+
+    liberaComidaVegana(abobrinha);
+    liberaComidaVegana(empadao);
+
+    liberaComidaNaoVegana(picanha);
+    liberaComidaNaoVegana(sorvete);
+    liberaComidaNaoVegana(linguica);
 
     
     return 0;
