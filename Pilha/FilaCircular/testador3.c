@@ -30,6 +30,7 @@ int main(int argc, const char * argv[]) {
 
      Amostra com resultados negativos
      */
+    
     imprimePosto(jcamburi);
     
     //processa as amostras do posto de jardim camburi
@@ -46,6 +47,8 @@ int main(int argc, const char * argv[]) {
     Amostra com resultados negativos
     Nome do dono da amostra: Joao, carga viral: 249, idade: 64, resultado: NEGATIVO
     Nome do dono da amostra: Maria, carga viral: 73, idade: 20, resultado: NEGATIVO */
+
+    
     imprimePosto(jcamburi);
     
     

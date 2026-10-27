@@ -5,7 +5,7 @@
 //  Created by Patricia Dockhorn Costa on 14/07/22.
 //
 //  Testador 1 (vale até 6,0): Testa criação, inserção e impressão
-
+/*
 #include <stdio.h>
 #include "posto.h"
 
@@ -30,7 +30,12 @@ int main(int argc, const char * argv[]) {
 
      Amostra com resultados negativos
      */
+
+     /*
     imprimePosto(jcamburi);
+
+    liberaPosto(jcamburi);
 
     return 0;
 }
+*/

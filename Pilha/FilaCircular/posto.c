@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "posto.h"
+#include "fila.h"
 
 /*Tipo que define um Posto de Saúde (tipo opaco)
  *Um posto deve ter os seguintes atributos:
@@ -10,7 +11,13 @@
  * * Uma FILA de amostras processadas com resultado POSITIVO
  * * Uma FILA de amostras processadas com resultado NEGATIVO
  * */
- typedef struct posto Posto;
+ struct posto 
+ {
+    char* nome;
+    tFila* naoProcessadas;
+    tFila* positivo;
+    tFila* negativo;
+ };
 
  /* Cria um posto de saúde, ainda vazio, com as 3 filas, vazias
  * inputs: nome do posto de saúde.
@@ -18,7 +25,16 @@
  * pre-condicao: nao tem
  * pos-condicao: posto alocado e vazio, com filas de amostras alocadas e vazias
   */
- Posto* inicPosto(char* nome);
+ Posto* inicPosto(char* nome)
+ {
+    Posto* posto = malloc(sizeof(Posto));
+    posto->naoProcessadas = CriaFila();
+    posto->negativo = CriaFila();
+    posto->positivo = CriaFila();
+    posto->nome = strdup(nome);
+
+    return posto;
+ }
  
  /* Imprime os dados do Posto no seguinte formato:
   
@@ -37,7 +53,21 @@
  * pre-condicao: posto alocado
  * pos-condicao: dados do posto não são alterados
   */
- void imprimePosto(Posto* posto);
+ void imprimePosto(Posto* posto)
+ {
+    printf("===================================================\n");
+    printf("Dados do Posto: %s\n\n",posto->nome);
+    printf("AMOSTRAS NÃO PROCESSADAS:\n");
+    ImprimeFila(posto->naoProcessadas);
+    printf("\n");
+    printf("AMOSTRAS COM RESULTADOS POSITIVOS:\n");
+    ImprimeFila(posto->positivo);
+    printf("\n");
+    printf("AMOSTRAS COM RESULTADOS NEGATIVOS:\n");
+    ImprimeFila(posto->negativo);
+    printf("===================================================\n");
+
+ }
  
  /* Simula a realização de uma coleta de material para teste
   * A função deve criar uma amostra e fazer as devidas atribuições à amostra
@@ -48,7 +78,12 @@
  * pre-condicao: posto válido, nome da pessoa válido
  * pos-condicao: Amostra alocada e inserida na fila de amostras não processadas
   */
- void realizaColeta(Posto* posto, char* pessoa, int idade);
+ void realizaColeta(Posto* posto, char* pessoa, int idade)
+ {
+    Amostra* a = inicAmostra(pessoa,idade);
+
+    PushFila(posto->naoProcessadas,a);
+ }
  
  
  /* Essa função simula o processamento (testagem) das amostras e atualiza os resultados nas amostras. Deve-se usar a constante LIMITE_CARGA_VIRAL para definir positivo e negativo.
@@ -57,7 +92,28 @@
  * pre-condicao: posto válido
  * pos-condicao: amostras foram devidamente processadas; fila de amostras não processadas deve ficar vazia; fila de amostras positivas deve conter as amostras que testaram positivo (idosos na frente); fila de amostras negativas deve conter as amostras que testaram negativo (idosos na frente).
   */
- void processaLoteAmostras(Posto* posto);
+ void processaLoteAmostras(Posto* posto)
+ {
+    int it = GetQntFila(posto->naoProcessadas);
+
+    for(int i=0;i < it; i++)
+    {
+        Amostra* temp = PopFila(posto->naoProcessadas);
+
+        int carga = retornaCargaViral(temp);
+
+        if(carga > LIMITE_CARGA_VIRAL)
+        {
+            registraResultado(temp,POSITIVO);
+            PushFila(posto->positivo,temp);
+        }
+        else
+        {
+            registraResultado(temp,NEGATIVO);
+            PushFila(posto->negativo,temp);
+        }
+    }
+ }
  
  /* Libera toda a memória alocada para o posto de saúde
  * inputs: referência do posto de saúde.
@@ -65,5 +121,14 @@
  * pre-condicao: posto válido
  * pos-condicao: Memória para a string nome liberada; memória para as 3 filas liberada, memoria do posto liberada
   */
- void liberaPosto(Posto* posto);
+ void liberaPosto(Posto* posto)
+ {
+    LiberaFila(posto->naoProcessadas);
+    LiberaFila(posto->negativo);
+    LiberaFila(posto->positivo);
+    free(posto->nome);
+
+    free(posto);
+
+ }
  

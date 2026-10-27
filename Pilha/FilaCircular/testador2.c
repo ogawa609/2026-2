@@ -5,7 +5,7 @@
 //  Created by Patricia Dockhorn Costa on 14/07/22.
 //
 //  Testador 2 (vale até 8,0): Testa criação, inserção, impressão e liberação de memória
-
+/*
 #include <stdio.h>
 #include "posto.h"
 
@@ -30,6 +30,7 @@ int main(int argc, const char * argv[]) {
 
      Amostra com resultados negativos
      */
+   /* 
     imprimePosto(jcamburi);
     
 
@@ -37,3 +38,4 @@ int main(int argc, const char * argv[]) {
     liberaPosto(jcamburi);
     return 0;
 }
+*/

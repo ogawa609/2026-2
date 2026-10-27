@@ -44,10 +44,12 @@ void registraResultado(Amostra* amostra, int resultado){
 
 void imprimeAmostra(Amostra* amostra){
     
-    if (amostra->resultado)
+    if (amostra->resultado == 1)
         printf ("Nome do dono da amostra: %s, carga viral: %d, idade: %d, resultado: POSITIVO\n", amostra->nome, amostra->carga_viral, amostra->idade);
-    else
+    else if(amostra->resultado == 0)
         printf ("Nome do dono da amostra: %s, carga viral: %d, idade: %d, resultado: NEGATIVO\n", amostra->nome, amostra->carga_viral, amostra->idade);
+    else
+        printf ("Nome do dono da amostra: %s, carga viral: %d, idade: %d, resultado: --\n", amostra->nome, amostra->carga_viral, amostra->idade);
 }
 
 void liberaAmostra(Amostra* amostra){
