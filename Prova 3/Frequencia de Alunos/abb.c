@@ -55,10 +55,10 @@ Aluno* Buscar(Abb* arv, char* nome)
         return NULL;
     
     if(strcmp(GetNomeAluno(arv->aluno),nome)>0)
-        return Buscar(arv->direita,nome);
+        return Buscar(arv->esquerda,nome);
 
     else if(strcmp(GetNomeAluno(arv->aluno),nome)<0)
-        return Buscar(arv->esquerda,nome);
+        return Buscar(arv->direita,nome);
     
     else
         return arv->aluno;
@@ -66,6 +66,9 @@ Aluno* Buscar(Abb* arv, char* nome)
 
 void Imprimir(Abb* arv)
 {
+    if(arv == NULL)
+        return;
+
     ImprimeAluno(arv->aluno);
 
     Imprimir(arv->direita);
