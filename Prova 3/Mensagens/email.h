@@ -5,4 +5,5 @@ Email* CriaEmail(char* email,char* mensagem);
 void LiberaEmail(Email* e);
 char* getPessoa(Email* e);
 void ImprimirEmail(Email* e);
+int ComparaPessoas(Email* p1, Email* p2);
 #endif

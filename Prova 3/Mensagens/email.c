@@ -30,3 +30,8 @@ void ImprimirEmail(Email* e)
 {
     printf("%s %s\n",e->usuario,e->mensagem);
 }
+
+int ComparaPessoas(Email* p1, Email* p2)
+{
+    return strcmp(p1->usuario,p2->usuario) == 0;
+}
