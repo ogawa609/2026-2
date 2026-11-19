@@ -6,19 +6,23 @@
  struct email 
  {
     char* usuario;
-    char* mensagem;
+    char* mensagens[10];
+    int qnt;
  };
-Email* CriaEmail(char* email,char* mensagem)
+Email* CriaEmail(char* email,char* mens)
 {
     Email* e = malloc(sizeof(Email));
     e->usuario = strdup(email);
-    e->mensagem = strdup(mensagem);
+    e->mensagens[0] = strdup(mens);
+   e->qnt = 1;
 
     return e;
 }
 void LiberaEmail(Email* e)
 {
-    free(e->mensagem);
+    for(int i=0;i<e->qnt;i++)
+        free(e->mensagens[i]);
+    
     free(e->usuario);
     free(e);
 }
@@ -28,10 +32,35 @@ char* getPessoa(Email* e)
 }
 void ImprimirEmail(Email* e)
 {
-    printf("%s %s\n",e->usuario,e->mensagem);
+    printf("%s\n",e->usuario);
+    for(int i=0;i<e->qnt;i++)
+    {
+        printf("    %s\n",e->mensagens[i]);
+    }
 }
 
 int ComparaPessoas(Email* p1, Email* p2)
 {
     return strcmp(p1->usuario,p2->usuario) == 0;
+}
+void InserirMensagem(Email* e, char* mensagem)
+{
+    if(e->qnt<10)
+    {
+        e->mensagens[e->qnt] = strdup(mensagem);
+        e->qnt++;
+    }
+}
+int gerQnt(Email* e)
+{
+    return e->qnt;
+}
+
+int compara(const void* a, const void* b)
+{
+    Email* aa = *(Email**)a;
+    Email* bb = *(Email**)b;
+
+
+    return (aa->qnt - bb->qnt);
 }
